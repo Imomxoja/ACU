@@ -1,17 +1,19 @@
 package uz.practise.acu.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import uz.practise.acu.domain.entity.reaction.RankingEntity;
 import uz.practise.acu.domain.entity.user.UserEntity;
+
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity(name = "recipe")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@Builder
 public class RecipeEntity extends BaseEntity {
     private String name;
     private String description;
@@ -19,9 +21,12 @@ public class RecipeEntity extends BaseEntity {
     @OneToOne(mappedBy = "recipe", cascade = CascadeType.ALL)
     private RankingEntity ranking;
     private Boolean isPaid;
+    private Boolean isNotDeleted = Boolean.TRUE;
     @Lob
     private byte[] image;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
+    @ManyToMany(mappedBy = "savedRecipes")
+    private List<UserEntity> users;
 }

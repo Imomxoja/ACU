@@ -1,21 +1,18 @@
 package uz.practise.acu.domain.entity.user;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import uz.practise.acu.domain.entity.BaseEntity;
-import uz.practise.acu.domain.entity.CardEntity;
-import uz.practise.acu.domain.entity.CourseEntity;
-import uz.practise.acu.domain.entity.RecipeEntity;
+import uz.practise.acu.domain.entity.*;
+import uz.practise.acu.domain.entity.reaction.RankingEntity;
 
 import java.util.Collection;
 import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
-@Entity(name = "user")
+@Entity(name = "users")
 @Getter
 @Setter
 @Builder
@@ -29,9 +26,19 @@ public class UserEntity extends BaseEntity implements UserDetails {
     private List<CourseEntity> courses;
     @OneToMany(mappedBy = "user")
     private List<RecipeEntity> recipes;
+    @ManyToMany
+    @JoinTable(
+            name = "user_recipe",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "recipe_id")
+    )
+    private List<RecipeEntity> savedRecipes;
     private Role role;
     @OneToMany(mappedBy = "user")
     private List<CardEntity> card;
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
+    private List<RankingEntity> ranking;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -9,11 +9,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.crypto.SecretKey;
 import java.security.Key;
+import java.security.SignatureException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+
+import static io.jsonwebtoken.SignatureAlgorithm.*;
 
 @Service
 @RequiredArgsConstructor
@@ -34,7 +38,7 @@ public class JwtService {
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .signWith(getSigningKey(), HS256)
                 .compact();
     }
 
@@ -67,7 +71,7 @@ public class JwtService {
 
 
     private Key getSigningKey() {
-        String SECRET_KEY = "9C388776B48D342AED8AA92B78911";
+        String SECRET_KEY = "l+f7EYuAiY7buPoOHbwZFBkuhRAslzyEMPW9MjZklBiu661XJaCKB8DpvflGM7Mq";
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
     }

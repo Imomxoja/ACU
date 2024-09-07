@@ -18,6 +18,6 @@ public class CardEntity extends BaseEntity {
     private Double balance;
     private String cardNumber;
     @ManyToOne
-    @JoinColumn(name = "card_id")
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 }
