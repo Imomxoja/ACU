@@ -22,6 +22,9 @@ public class UserEntity extends BaseEntity implements UserDetails {
     private String fullName;
     private String email;
     private String password;
+    private String description;
+    private Double averageRating;
+    private List<Double> ranks;
     @OneToMany(mappedBy = "user")
     private List<CourseEntity> courses;
     @OneToMany(mappedBy = "user")
@@ -34,8 +37,8 @@ public class UserEntity extends BaseEntity implements UserDetails {
     )
     private List<RecipeEntity> savedRecipes;
     private Role role;
-    @OneToMany(mappedBy = "user")
-    private List<CardEntity> card;
+    @OneToOne(mappedBy = "user")
+    private CardEntity card;
     @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
     private List<RankingEntity> ranking;
 

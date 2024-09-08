@@ -13,7 +13,7 @@ import uz.practise.acu.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor
-public class AuthService  {
+public class AuthService {
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;

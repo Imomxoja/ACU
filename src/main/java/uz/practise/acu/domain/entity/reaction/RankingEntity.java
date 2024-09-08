@@ -23,7 +23,7 @@ import java.util.List;
 @Data
 public class RankingEntity extends BaseEntity {
     private List<String> comments;
-    private Long likes;
+    private int likes;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity author;

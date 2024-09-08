@@ -23,6 +23,7 @@ public class CourseEntity extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private UserEntity user;
+    private Double price;
     @OneToOne(mappedBy = "course")
     private RankingEntity ranking;
 }

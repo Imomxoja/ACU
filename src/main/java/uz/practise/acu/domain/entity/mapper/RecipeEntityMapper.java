@@ -32,7 +32,6 @@ public class RecipeEntityMapper {
                 .image(multipartFile.getBytes())
                 .description(recipeRequest.getDescription())
                 .name(recipeRequest.getName())
-                .isPaid(recipeRequest.getIsPaid())
                 .build();
     }
 
@@ -46,7 +45,6 @@ public class RecipeEntityMapper {
                 .image(entity.getImage())
                 .description(entity.getDescription())
                 .name(entity.getName())
-                .isPaid(entity.getIsPaid())
                 .build();
     }
 }

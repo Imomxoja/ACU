@@ -13,6 +13,6 @@ public class RecipeRequest {
     private String name;
     private String description;
     private Category category;
-    private Boolean isPaid;
+    private Double price;
     private MultipartFile image;
 }

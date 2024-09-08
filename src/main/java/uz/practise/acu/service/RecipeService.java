@@ -6,11 +6,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import uz.practise.acu.domain.entity.RecipeEntity;
 import uz.practise.acu.domain.entity.mapper.RecipeEntityMapper;
+import uz.practise.acu.domain.entity.mapper.UserEntityMapper;
 import uz.practise.acu.domain.entity.reaction.RankingEntity;
 import uz.practise.acu.domain.entity.user.UserEntity;
 import uz.practise.acu.domain.request.RecipeRequest;
 import uz.practise.acu.domain.response.BaseResponse;
 import uz.practise.acu.domain.response.RecipeResponse;
+import uz.practise.acu.domain.response.UserResponse;
 import uz.practise.acu.repository.RankingRepository;
 import uz.practise.acu.repository.RecipeRepository;
 import uz.practise.acu.repository.UserRepository;
@@ -29,6 +31,7 @@ public class RecipeService {
     private final RecipeRepository recipeRepository;
     private final RankingRepository rankingRepository;
     private final RecipeEntityMapper mapper;
+    private final UserEntityMapper userEntityMapper;
 
     public BaseResponse<RecipeResponse> save(RecipeRequest recipeRequest, MultipartFile file, UUID userId) {
         RecipeEntity recipe;
@@ -40,6 +43,14 @@ public class RecipeService {
                     .build();
         }
         try {
+            if (userEntity.get().getRole().name().equals("PROFESSIONAL") && recipeRequest.getPrice() > 0) {
+                if (userEntity.get().getCard() == null) {
+                    return BaseResponse.<RecipeResponse>builder()
+                            .message("You should add your card first")
+                            .status(400)
+                            .build();
+                }
+            }
             RecipeEntity entity = mapper.toEntity(recipeRequest, file);
             entity.setUser(userEntity.get());
             recipe = recipeRepository.save(entity);
@@ -244,6 +255,31 @@ public class RecipeService {
         return BaseResponse.<RecipeResponse>builder()
                 .message("Recipe not found")
                 .status(400)
+                .build();
+    }
+
+    public BaseResponse<List<UserResponse>> getUsersForRanking() {
+        List<UserEntity> all = userRepository.findAll();
+        List<UserResponse> users = new ArrayList<>();
+        var ref = new Object() {
+            int amountOfLikes = 0;
+        };
+
+        for (UserEntity userEntity : all) {
+            if (userEntity.getRanks().size() < 5) {
+                userEntity.getRecipes().forEach(recipe -> ref.amountOfLikes += recipe.getRanking().getLikes());
+                userEntity.getCourses().forEach(course -> ref.amountOfLikes += course.getRanking().getLikes());
+
+                if (ref.amountOfLikes >= 1000) {
+                    users.add(userEntityMapper.toUserResponse(userEntity));
+                }
+                ref.amountOfLikes = 0;
+            }
+        }
+
+        return BaseResponse.<List<UserResponse>>builder()
+                .data(users)
+                .status(200)
                 .build();
     }
 }

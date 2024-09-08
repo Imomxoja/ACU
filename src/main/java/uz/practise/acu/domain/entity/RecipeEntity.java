@@ -20,7 +20,7 @@ public class RecipeEntity extends BaseEntity {
     private Category category;
     @OneToOne(mappedBy = "recipe", cascade = CascadeType.ALL)
     private RankingEntity ranking;
-    private Boolean isPaid;
+    private Double price;
     private Boolean isNotDeleted = Boolean.TRUE;
     @Lob
     private byte[] image;

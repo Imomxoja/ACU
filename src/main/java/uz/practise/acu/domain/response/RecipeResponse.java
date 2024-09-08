@@ -18,7 +18,7 @@ public class RecipeResponse {
     private String description;
     private Category category;
     private RankingEntity ranking;
-    private Boolean isPaid;
     private byte[] image;
+    private Double price;
     private UserEntity user;
 }
