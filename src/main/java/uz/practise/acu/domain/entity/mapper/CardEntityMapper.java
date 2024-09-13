@@ -4,7 +4,7 @@ import lombok.*;
 import org.springframework.stereotype.Component;
 import uz.practise.acu.domain.entity.CardEntity;
 import uz.practise.acu.domain.entity.user.UserEntity;
-import uz.practise.acu.domain.request.card.CardRequest;
+import uz.practise.acu.domain.request.CardRequest;
 import uz.practise.acu.domain.response.CardResponse;
 
 @Getter

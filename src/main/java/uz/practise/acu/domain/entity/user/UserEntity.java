@@ -36,6 +36,13 @@ public class UserEntity extends BaseEntity implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "recipe_id")
     )
     private List<RecipeEntity> savedRecipes;
+    @ManyToMany
+    @JoinTable(
+            name = "user_course",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    private List<CourseEntity> savedCourses;
     private Role role;
     @OneToOne(mappedBy = "user")
     private CardEntity card;

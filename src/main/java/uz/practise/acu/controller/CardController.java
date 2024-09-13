@@ -4,7 +4,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
-import uz.practise.acu.domain.request.card.CardRequest;
+import uz.practise.acu.domain.request.CardRequest;
 import uz.practise.acu.domain.response.BaseResponse;
 import uz.practise.acu.domain.response.CardResponse;
 import uz.practise.acu.service.CardService;
@@ -35,7 +35,6 @@ public class CardController {
     public BaseResponse<CardResponse> remove(@Param("cardId") UUID cardId) {
         return cardService.remove(cardId);
     }
-
 
 
 }

@@ -1,4 +1,4 @@
-package uz.practise.acu.domain.request.card;
+package uz.practise.acu.domain.request;
 
 import lombok.*;
 

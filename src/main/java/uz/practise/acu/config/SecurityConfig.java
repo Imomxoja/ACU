@@ -24,7 +24,7 @@ public class SecurityConfig {
         return http.csrf()
                 .disable()
                 .authorizeRequests()
-                .requestMatchers("/api/v1/auth/**", "/recipe/**")
+                .requestMatchers("/api/v1/auth/**", "/recipe/**", "/course/**")
                 .permitAll()
                 .anyRequest().authenticated()
 //                .and().formLogin().loginPage("").defaultSuccessUrl("")

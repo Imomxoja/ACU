@@ -7,7 +7,7 @@ import uz.practise.acu.domain.entity.CourseEntity;
 import uz.practise.acu.domain.entity.RecipeEntity;
 import uz.practise.acu.domain.entity.mapper.CardEntityMapper;
 import uz.practise.acu.domain.entity.user.UserEntity;
-import uz.practise.acu.domain.request.card.CardRequest;
+import uz.practise.acu.domain.request.CardRequest;
 import uz.practise.acu.domain.response.BaseResponse;
 import uz.practise.acu.domain.response.CardResponse;
 import uz.practise.acu.repository.CardRepository;
